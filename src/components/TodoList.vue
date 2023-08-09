@@ -1,8 +1,10 @@
 <template>
   <div>
     <ul>
-      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem" class="shadow">
-        {{ todoItem }}
+      <li v-for="(todoItem, index) in todoItems" v-bind:key="todoItem.item" class="shadow">
+        <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
+          v-on:click="toggleComplete(todoItem)"></i>
+        <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fa fa-trash-alt"></i>
         </span>
@@ -24,6 +26,14 @@ export default {
       console.log(todoItem, index);
       localStorage.removeItem(todoItem);
       this.todoItems.splice(index, 1);
+    },
+
+    toggleComplete: function(todoItem){
+      todoItem.completed = !todoItem.completed;
+
+      //로컬 스토리지의 데이터를 갱신
+      localStorage.removeItem(todoItem.item);
+      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
     }
   },
   created: function(){
@@ -31,8 +41,7 @@ export default {
       for(var i=0; i<localStorage.length; i++){
 
         if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-          this.todoItems.push(localStorage.key(i));
-          // console.log(localStorage.key(i));
+          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
         }
       }
     }
@@ -40,7 +49,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   ul{
     list-style-type: none;
     padding-left: 0px;
