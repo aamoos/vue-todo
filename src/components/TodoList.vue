@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(todoItem, index) in propsdata" v-bind:key="todoItem.item" class="shadow">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}"
-          v-on:click="toggleComplete(todoItem)"></i>
+          v-on:click="toggleComplete(todoItem, index)"></i>
         <span v-bind:class="{textCompleted: todoItem.completed}">{{ todoItem.item }}</span>
         <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
           <i class="fa fa-trash-alt"></i>
@@ -21,12 +21,8 @@ export default {
       this.$emit('removeItem', todoItem, index);
     },
 
-    toggleComplete: function(todoItem){
-      todoItem.completed = !todoItem.completed;
-
-      //로컬 스토리지의 데이터를 갱신
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+    toggleComplete: function(todoItem, index){
+      this.$emit('toggleItem', todoItem, index);
     }
   }
 }
