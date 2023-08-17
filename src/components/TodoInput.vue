@@ -5,14 +5,24 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="fa fa-plus addBtn"></i>
     </span>
+
+    <Modal v-if="showModal" @close="showModal = false">
+      <h3 slot="header">
+        경고!
+      </h3>
+      
+    </Modal>
   </div>
 </template>
 
 <script>
+import Modal from './common/ModalView.vue'
+
 export default {
   data: function(){
     return{
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false
     }
   },
 
@@ -21,11 +31,16 @@ export default {
       if(this.newTodoItem !== ''){
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput();
+      }else{
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function(){
       this.newTodoItem = '';
     }
+  },
+  componets: {
+    Modal: Modal
   }
 }
 </script>
