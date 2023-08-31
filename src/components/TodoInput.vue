@@ -43,7 +43,7 @@ export default {
     }
   },
   componets: {
-    Modal: Modal
+    Modal
   }
 }
 </script>
