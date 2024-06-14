@@ -23,10 +23,7 @@ export default {
       this.$emit('removeItem', todoItem, index);
     },
     toggleCompleted: function(todoItem, index){
-      todoItem.completed = !todoItem.completed;
-      // 로컬스토리지의 데이터를 갱신
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      this.$emit('toggleItem', todoItem, index);
     }
   }
 }
