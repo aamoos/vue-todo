@@ -32,7 +32,7 @@ export default {
         this.$emit('addTodoItem', this.newTodoItem);
         this.clearInput(); 
       } else{
-        
+        this.showModal = !this.showModal;
       }
     },
     clearInput: function(){
