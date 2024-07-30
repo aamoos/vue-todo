@@ -3,7 +3,6 @@
     <TodoHeader></TodoHeader>
     <TodoInput></TodoInput>
     <TodoList v-bind:propsdata="todoItems" 
-      v-on:removeItem="removeOneItem" 
       v-on:toggleItem="toggleOneItem"></TodoList>
     <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
   </div>
@@ -22,16 +21,6 @@ export default {
     }
   },
   methods: {
-    //mutations
-    // addOneItem(todoItem){
-    //   const obj = { completed: false, item: this.todoItem };
-    //   localStorage.setItem(todoItem, JSON.stringify(obj));
-    //   this.todoItems.push(obj);
-    // },
-    removeOneItem(todoItem, index){
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(index, 1);
-    },
     toggleOneItem(todoItem, index){
       todoItem.completed = !todoItem.completed;
       this.todoItems[index].completed = !this.todoItems[index].completed;
@@ -44,10 +33,10 @@ export default {
     }
   },
   components: {
-      'TodoHeader' : TodoHeader
-     ,'TodoInput' : TodoInput
-     ,'TodoList' : TodoList
-     ,'TodoFooter' : TodoFooter
+      TodoHeader
+     ,TodoInput
+     ,TodoList
+     ,TodoFooter
   }
 }
 </script>
