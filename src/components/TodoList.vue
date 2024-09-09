@@ -7,7 +7,7 @@
         <span v-bind:class="{textCompleted: todoItem.completed}">
           {{ todoItem.item }}
         </span>
-        <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
+        <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
           <i class="fas fa-trash-alt"></i>
         </span>
       </li>
@@ -16,13 +16,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   methods: {
-    removeTodo(todoItem, index){
-      this.$store.commit('removeOneItem', {todoItem, index})
-    },
+    ...mapMutations({
+      removeTodo: 'removeOneItem',
+    }),
+
+    // removeTodo(todoItem, index){
+    //   this.$store.commit('removeOneItem', {todoItem, index})
+    // },
     toggleCompleted(todoItem, index){
       this.$store.commit('toggleOneItem',{ todoItem, index })
     }
