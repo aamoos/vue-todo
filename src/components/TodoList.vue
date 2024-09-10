@@ -3,7 +3,7 @@
     <transition-group name="list" tag="ul">
       <li v-for="(todoItem, index) in this.todoItems" v-bind:key="todoItem.item" class="shadow">
         <i class="checkBtn fas fa-check" v-bind:class="{checkBtnCompleted: todoItem.completed}" 
-        v-on:click="toggleCompleted(todoItem, index)"></i>
+        v-on:click="toggleCompleted({todoItem, index})"></i>
         <span v-bind:class="{textCompleted: todoItem.completed}">
           {{ todoItem.item }}
         </span>
@@ -22,19 +22,11 @@ export default {
   methods: {
     ...mapMutations({
       removeTodo: 'removeOneItem',
+      toggleCompleted: 'toggleOneItem'
     }),
-
-    // removeTodo(todoItem, index){
-    //   this.$store.commit('removeOneItem', {todoItem, index})
-    // },
-    toggleCompleted(todoItem, index){
-      this.$store.commit('toggleOneItem',{ todoItem, index })
-    }
   },
   computed: {
-    ...mapGetters({
-      todoItems: 'storedTodoItems'
-    })
+    ...mapGetters(['storedTodoItems'])
   }
 }
 </script>
